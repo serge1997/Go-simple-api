@@ -1,2 +1,3 @@
 go-simpe-api
 vendor
+storage/*

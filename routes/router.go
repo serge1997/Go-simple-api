@@ -11,6 +11,11 @@ import (
 func RoutesRegister(r *mux.Router) {
 	fmt.Println("Server is running [:3000]")
 	services.Write("Server is running [:3000]")
-	r.HandleFunc("/", api.Home)
+	r.HandleFunc("/", api.Home).Methods("GET")
+
+	//author
+	r.HandleFunc("/author", api.StoreAuthor).Methods("POST")
+	r.HandleFunc("/author/{id}", api.Show).Methods("GET")
+	r.HandleFunc("/author", api.ListAll).Methods("GET")
 
 }
