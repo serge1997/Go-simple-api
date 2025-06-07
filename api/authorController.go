@@ -9,6 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/serge1197/go-simple-api/db"
+	"github.com/serge1197/go-simple-api/dto"
 	"github.com/serge1197/go-simple-api/repository/author"
 	"github.com/serge1197/go-simple-api/services"
 )
@@ -44,7 +45,9 @@ func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	author.Id = *id
-	tobyte, err := json.MarshalIndent(&author, "", "\t")
+	dto := dto.AuthorToResource(author)
+	tobyte, err := json.MarshalIndent(&dto, "", "\t")
+
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		response.Code = http.StatusBadRequest
@@ -76,8 +79,15 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
-
-	json.NewEncoder(w).Encode(author)
+	authorDto := dto.AuthorToResource(*author)
+	data, err := json.MarshalIndent(authorDto, "", "\t")
+	if err != nil {
+		panic(err)
+	}
+	response.Message = "Showing an author"
+	response.Code = http.StatusOK
+	response.Data = (*json.RawMessage)(&data)
+	json.NewEncoder(w).Encode(response)
 }
 
 func ListAll(w http.ResponseWriter, r *http.Request) {
@@ -94,7 +104,8 @@ func ListAll(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
-	data, err := json.MarshalIndent(authors, "", "\t")
+	collection := dto.AuthorsCollection(*authors)
+	data, err := json.MarshalIndent(collection, "", "\t")
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		response.Code = http.StatusNotFound
@@ -105,6 +116,6 @@ func ListAll(w http.ResponseWriter, r *http.Request) {
 	response.Code = http.StatusOK
 	response.Message = "List of all author"
 	response.Data = (*json.RawMessage)(&data)
-	json.NewEncoder(w).Encode(authors)
+	json.NewEncoder(w).Encode(response)
 
 }

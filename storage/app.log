@@ -1,0 +1,29 @@
+2025/06/07 14:15:21 Server is running [:3000]
+2025/06/07 14:15:25 GET /author
+2025/06/07 14:15:29 GET /author
+2025/06/07 14:15:30 GET /author
+2025/06/07 14:15:30 GET /author
+2025/06/07 14:15:31 GET /author
+2025/06/07 14:15:31 GET /author
+2025/06/07 14:16:03 Server is running [:3000]
+2025/06/07 14:16:06 GET /author
+2025/06/07 14:16:57 Server is running [:3000]
+2025/06/07 14:17:00 GET /author
+2025/06/07 14:17:58 Server is running [:3000]
+2025/06/07 14:18:02 GET /author
+2025/06/07 14:25:37 Server is running [:3000]
+2025/06/07 14:25:43 GET /author
+2025/06/07 14:25:46 GET /author/1
+2025/06/07 14:25:52 GET /author/1
+2025/06/07 14:27:55 Server is running [:3000]
+2025/06/07 14:27:57 GET /author/1
+2025/06/07 14:27:59 GET /author/1
+2025/06/07 14:28:03 GET /author/2
+2025/06/07 14:28:08 GET /author/1
+2025/06/07 14:28:12 GET /author
+2025/06/07 14:29:02 POST /author
+2025/06/07 14:29:10 GET /author
+2025/06/07 14:30:38 POST /author
+2025/06/07 14:30:55 Server is running [:3000]
+2025/06/07 14:31:17 POST /author
+2025/06/07 14:31:27 GET /author
