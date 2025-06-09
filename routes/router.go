@@ -17,5 +17,6 @@ func RoutesRegister(r *mux.Router) {
 	r.HandleFunc("/author", api.StoreAuthor).Methods("POST")
 	r.HandleFunc("/author/{id}", api.Show).Methods("GET")
 	r.HandleFunc("/author", api.ListAll).Methods("GET")
+	r.HandleFunc("/author", api.UpdateAuthor).Methods("PUT")
 
 }

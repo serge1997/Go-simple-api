@@ -21,6 +21,7 @@ func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
 	params := r.Body
 	var response services.HttpResponse
+
 	if params == nil {
 		w.WriteHeader(http.StatusNoContent)
 		response.Code = http.StatusNoContent
@@ -28,9 +29,7 @@ func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
-	response.Code = http.StatusCreated
-	response.Message = "author created successfully"
+
 	var author author.Author
 	db.ConnSqlite()
 	json.NewDecoder(r.Body).Decode(&author)
@@ -40,7 +39,7 @@ func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		response.Code = http.StatusBadRequest
-		response.Message = ErrEmptyAuthorRequestBody.Error()
+		response.Message = err.Error()
 		json.NewEncoder(w).Encode(response)
 		return
 	}
@@ -56,6 +55,9 @@ func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.WriteHeader(http.StatusCreated)
+	response.Code = http.StatusCreated
+	response.Message = "author created successfully"
 	response.Data = (*json.RawMessage)(&tobyte)
 	json.NewEncoder(w).Encode(response)
 }
@@ -118,4 +120,38 @@ func ListAll(w http.ResponseWriter, r *http.Request) {
 	response.Data = (*json.RawMessage)(&data)
 	json.NewEncoder(w).Encode(response)
 
+}
+
+func UpdateAuthor(w http.ResponseWriter, r *http.Request) {
+	services.Write(r.Method + " " + r.URL.Path)
+	w.Header().Set("Content-Type", "application/json")
+	var response services.HttpResponse
+	var author author.Author
+
+	params := r.Body
+	if params == nil {
+		w.WriteHeader(http.StatusNoContent)
+		response.Code = http.StatusNoContent
+		response.Message = "Please informe a author data"
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+	db.ConnSqlite()
+	json.NewDecoder(r.Body).Decode(&author)
+	result, err := author.Update(db.Connection)
+	if err != nil {
+		w.WriteHeader(http.StatusConflict)
+		response.Code = http.StatusConflict
+		response.Message = err.Error()
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+	dto := dto.AuthorToResource(*result)
+	data, _ := json.MarshalIndent(dto, "", "\t")
+	w.WriteHeader(http.StatusOK)
+	response.Code = http.StatusOK
+	response.Message = "Author updated successfully"
+	response.Data = (*json.RawMessage)(&data)
+
+	json.NewEncoder(w).Encode(response)
 }
