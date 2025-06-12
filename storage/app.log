@@ -1,97 +1,16 @@
-2025/06/07 14:15:21 Server is running [:3000]
-2025/06/07 14:15:25 GET /author
-2025/06/07 14:15:29 GET /author
-2025/06/07 14:15:30 GET /author
-2025/06/07 14:15:30 GET /author
-2025/06/07 14:15:31 GET /author
-2025/06/07 14:15:31 GET /author
-2025/06/07 14:16:03 Server is running [:3000]
-2025/06/07 14:16:06 GET /author
-2025/06/07 14:16:57 Server is running [:3000]
-2025/06/07 14:17:00 GET /author
-2025/06/07 14:17:58 Server is running [:3000]
-2025/06/07 14:18:02 GET /author
-2025/06/07 14:25:37 Server is running [:3000]
-2025/06/07 14:25:43 GET /author
-2025/06/07 14:25:46 GET /author/1
-2025/06/07 14:25:52 GET /author/1
-2025/06/07 14:27:55 Server is running [:3000]
-2025/06/07 14:27:57 GET /author/1
-2025/06/07 14:27:59 GET /author/1
-2025/06/07 14:28:03 GET /author/2
-2025/06/07 14:28:08 GET /author/1
-2025/06/07 14:28:12 GET /author
-2025/06/07 14:29:02 POST /author
-2025/06/07 14:29:10 GET /author
-2025/06/07 14:30:38 POST /author
-2025/06/07 14:30:55 Server is running [:3000]
-2025/06/07 14:31:17 POST /author
-2025/06/07 14:31:27 GET /author
-2025/06/08 22:32:27 Server is running [:3000]
-2025/06/08 22:32:48 GET /author
-2025/06/08 22:32:54 POST /author
-2025/06/08 22:33:05 POST /author
-2025/06/08 22:33:45 Server is running [:3000]
-2025/06/08 22:33:49 POST /author
-2025/06/08 22:33:55 POST /author
-2025/06/08 22:35:13 Server is running [:3000]
-2025/06/08 22:35:19 POST /author
-2025/06/08 22:35:20 POST /author
-2025/06/08 22:35:21 POST /author
-2025/06/08 22:36:51 Server is running [:3000]
-2025/06/08 22:36:55 POST /author
-2025/06/08 22:37:21 Server is running [:3000]
-2025/06/08 22:37:25 POST /author
-2025/06/08 22:38:42 Server is running [:3000]
-2025/06/08 22:38:47 POST /author
-2025/06/08 22:39:11 Server is running [:3000]
-2025/06/08 22:39:23 POST /author
-2025/06/08 22:39:52 Server is running [:3000]
-2025/06/08 22:39:57 POST /author
-2025/06/08 22:41:32 Server is running [:3000]
-2025/06/08 22:41:36 POST /author
-2025/06/08 22:42:11 Server is running [:3000]
-2025/06/08 22:42:17 POST /author
-2025/06/08 22:43:11 Server is running [:3000]
-2025/06/08 22:43:16 POST /author
-2025/06/08 22:47:09 Server is running [:3000]
-2025/06/08 22:47:13 POST /author
-2025/06/08 22:47:15 POST /author
-2025/06/08 23:11:36 Server is running [:3000]
-2025/06/08 23:11:57 GET /author/1
-2025/06/08 23:12:45 PUT /author
-2025/06/08 23:13:38 Server is running [:3000]
-2025/06/08 23:13:42 PUT /author
-2025/06/08 23:16:22 Server is running [:3000]
-2025/06/08 23:16:29 PUT /author
-2025/06/08 23:16:30 PUT /author
-2025/06/08 23:18:50 Server is running [:3000]
-2025/06/08 23:18:55 PUT /author
-2025/06/08 23:19:55 Server is running [:3000]
-2025/06/08 23:19:59 PUT /author
-2025/06/08 23:20:49 PUT /author
-2025/06/08 23:23:10 Server is running [:3000]
-2025/06/08 23:23:17 PUT /author
-2025/06/08 23:23:27 PUT /author
-2025/06/08 23:23:28 PUT /author
-2025/06/08 23:23:53 Server is running [:3000]
-2025/06/08 23:23:58 PUT /author
-2025/06/08 23:24:03 PUT /author
-2025/06/08 23:24:06 PUT /author
-2025/06/08 23:24:08 PUT /author
-2025/06/08 23:24:09 PUT /author
-2025/06/08 23:24:10 PUT /author
-2025/06/08 23:24:11 PUT /author
-2025/06/08 23:24:11 PUT /author
-2025/06/08 23:24:11 PUT /author
-2025/06/08 23:24:12 PUT /author
-2025/06/08 23:24:16 PUT /author
-2025/06/08 23:24:41 Server is running [:3000]
-2025/06/08 23:24:48 PUT /author
-2025/06/08 23:24:50 PUT /author
-2025/06/08 23:25:32 PUT /author
-2025/06/08 23:25:36 PUT /author
-2025/06/08 23:25:51 PUT /author
-2025/06/08 23:25:52 PUT /author
-2025/06/08 23:25:57 PUT /author
-2025/06/08 23:26:05 PUT /author
+2025/06/11 22:53:00 Server is running [:3000]
+2025/06/11 22:53:03 DELETE /author/1
+2025/06/11 23:05:45 Server is running [:3000]
+2025/06/11 23:05:48 DELETE /author/1
+2025/06/11 23:09:39 Server is running [:3000]
+2025/06/11 23:09:43 DELETE /author/6
+2025/06/11 23:09:54 DELETE /author/6
+2025/06/11 23:11:23 Server is running [:3000]
+2025/06/11 23:11:27 DELETE /author/6
+2025/06/11 23:11:47 Server is running [:3000]
+2025/06/11 23:11:51 DELETE /author/6
+2025/06/11 23:13:12 Fatal error ocurred: Server is running [:3000]
+2025/06/11 23:14:19 Server is running [:3000]
+2025/06/11 23:14:22 DELETE /author/6
+2025/06/11 23:15:06 Server is running [:3000]
+2025/06/11 23:15:09 DELETE /author/6

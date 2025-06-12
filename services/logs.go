@@ -21,10 +21,9 @@ func WriteFatal(content string) {
 		panic(err)
 	}
 	defer file.Close()
-	log.Fatal("Fatal error ocurred: ", content)
 	log.SetOutput(file)
+	log.Fatal("Fatal error ocurred: ", content)
 }
-
 func Write(content string) {
 	file, err := openLoFile()
 	if err != nil {

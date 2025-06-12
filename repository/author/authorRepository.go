@@ -86,3 +86,21 @@ func (author Author) Update(db *sql.DB) (*Author, error) {
 	}
 	return nil, ErrOcurred
 }
+
+func (author *Author) Delete(db *sql.DB) (bool, error) {
+	stmt, err := db.Prepare("DELETE FROM authors WHERE id = ?")
+
+	if err != nil {
+		return false, errors.New("nao foi possivel remover o registro, " + err.Error())
+	}
+	result, err := stmt.Exec(author.Id)
+	if err != nil {
+		return false, errors.New("nao foi possivel remover o registro, " + err.Error())
+	}
+	if _, err := result.RowsAffected(); err == nil {
+		return true, nil
+	} else {
+		return false, errors.New("um erro ocorreu ao remover o registro")
+	}
+
+}

@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -153,5 +154,42 @@ func UpdateAuthor(w http.ResponseWriter, r *http.Request) {
 	response.Message = "Author updated successfully"
 	response.Data = (*json.RawMessage)(&data)
 
+	json.NewEncoder(w).Encode(response)
+}
+
+func DeleteAuthor(w http.ResponseWriter, r *http.Request) {
+	services.Write(r.Method + " " + r.URL.Path)
+	w.Header().Set("Content-Type", "application/json")
+	var response services.HttpResponse
+	params := mux.Vars(r)
+	parseId, err := strconv.ParseInt(params["id"], 0, 64)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response.Message = fmt.Sprintf("Parametro %s Invalido: %v", params["id"], err.Error())
+		response.Code = http.StatusBadRequest
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+	db.ConnSqlite()
+	id := int(parseId)
+	author, err := author.Find(db.Connection, id)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+		response.Message = fmt.Sprintf("Erro : %s", err.Error())
+		response.Code = http.StatusBadRequest
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+	_, errr := author.Delete(db.Connection)
+	if errr != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response.Message = fmt.Sprintf("Erro : %s", errr.Error())
+		response.Code = http.StatusBadRequest
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	response.Message = fmt.Sprintf("%s removido com successo", author.Name)
+	response.Code = http.StatusOK
 	json.NewEncoder(w).Encode(response)
 }
