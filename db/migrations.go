@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -23,6 +24,7 @@ func RunMigrations() *error {
 	if Connection == nil {
 		return &ErrNoDbConnection
 	}
+	createBooksTable()
 	createAuthorsTable()
 	return nil
 }
@@ -41,5 +43,24 @@ func createAuthorsTable() {
 		panic(err)
 	}
 	smt.Exec()
+}
 
+func createBooksTable() {
+	stmt, err := Connection.Prepare(`
+		CREATE TABLE IF NOT EXISTS books(
+			Id INTEGER PRIMARY KEY AUTOINCREMENT,
+			Title VARCHAR(60),
+			Edition VARCHAR(45),
+			Year INTEGER,
+			AuthorId INTEGER,
+			CreatedAt DATETIME,
+			UpdatedAt DATETIME NULL,
+			FOREIGN KEY (AuthorId) REFERENCES authors(Id)
+		)
+	`)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	stmt.Exec()
 }
