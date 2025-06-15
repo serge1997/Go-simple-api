@@ -20,4 +20,7 @@ func RoutesRegister(r *mux.Router) {
 	r.HandleFunc("/author", api.UpdateAuthor).Methods("PUT")
 	r.HandleFunc("/author/{id}", api.DeleteAuthor).Methods("DELETE")
 
+	//bool
+	r.HandleFunc("/book", api.StoreBook).Methods("POST")
+
 }

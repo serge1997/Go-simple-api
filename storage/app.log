@@ -15,3 +15,52 @@
 2025/06/11 23:15:06 Server is running [:3000]
 2025/06/11 23:15:09 DELETE /author/6
 2025/06/14 23:55:21 Server is running [:3000]
+2025/06/15 00:15:32 Server is running [:3000]
+2025/06/15 00:15:53 POST /book
+2025/06/15 00:16:03 POST /book
+2025/06/15 00:16:03 POST /book
+2025/06/15 00:16:44 Server is running [:3000]
+2025/06/15 00:16:47 POST /book
+2025/06/15 00:16:49 POST /book
+2025/06/15 00:16:50 POST /book
+2025/06/15 00:17:46 Server is running [:3000]
+2025/06/15 00:17:49 POST /book
+2025/06/15 00:19:29 Server is running [:3000]
+2025/06/15 00:19:32 POST /book
+2025/06/15 00:19:55 POST /book
+2025/06/15 00:19:56 POST /book
+2025/06/15 00:20:18 Server is running [:3000]
+2025/06/15 00:20:22 POST /book
+2025/06/15 00:20:24 POST /book
+2025/06/15 00:20:50 Server is running [:3000]
+2025/06/15 00:20:53 POST /book
+2025/06/15 00:26:12 Server is running [:3000]
+2025/06/15 00:26:16 POST /book
+2025/06/15 00:26:20 POST /book
+2025/06/15 00:26:21 POST /book
+2025/06/15 00:26:39 Server is running [:3000]
+2025/06/15 00:26:43 POST /book
+2025/06/15 00:28:19 Server is running [:3000]
+2025/06/15 00:28:23 POST /book
+2025/06/15 00:28:25 POST /book
+2025/06/15 00:28:26 POST /book
+2025/06/15 00:28:42 Server is running [:3000]
+2025/06/15 00:28:47 POST /book
+2025/06/15 00:28:48 POST /book
+2025/06/15 00:28:49 POST /book
+2025/06/15 00:28:49 POST /book
+2025/06/15 00:28:50 POST /book
+2025/06/15 00:28:50 POST /book
+2025/06/15 00:28:50 POST /book
+2025/06/15 00:28:50 POST /book
+2025/06/15 00:29:38 POST /author
+2025/06/15 00:29:38 POST /author
+2025/06/15 00:30:09 POST /book
+2025/06/15 00:30:41 Server is running [:3000]
+2025/06/15 00:30:48 POST /author
+2025/06/15 00:31:16 Server is running [:3000]
+2025/06/15 00:31:27 POST /book
+2025/06/15 00:35:33 POST /author
+2025/06/15 00:35:34 POST /author
+2025/06/15 00:37:21 Server is running [:3000]
+2025/06/15 00:37:29 POST /book
