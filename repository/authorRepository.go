@@ -1,19 +1,23 @@
-package author
+package repository
 
 import (
 	"database/sql"
 	"errors"
 	"time"
+
+	"github.com/serge1197/go-simple-api/models"
 )
 
-func (author Author) Persist(db *sql.DB) (*int64, error) {
+func (app AppRepostory) PersistAuthor(author models.Author) (*int64, error) {
 	var erro error
 	var ErrExists = errors.New("author already exists in database")
-	exist := FindByName(db, author.Name)
+
+	exist := app.FindAuthorByName(author.Name)
 	if exist != nil {
 		return nil, ErrExists
 	}
-	smt, err := db.Prepare("INSERT INTO authors(Name, Website, CreatedAt) VALUES(?, ?, ?)")
+
+	smt, err := app.db.Prepare("INSERT INTO authors(Name, Website, CreatedAt) VALUES(?, ?, ?)")
 
 	if err != nil {
 		erro = err
@@ -29,10 +33,10 @@ func (author Author) Persist(db *sql.DB) (*int64, error) {
 	return &id, erro
 }
 
-func Find(db *sql.DB, id int) (*Author, error) {
-	var author Author
+func (app AppRepostory) FindAuthor(id int) (*models.Author, error) {
+	var author models.Author
 	var ErrNotFound = errors.New("Author not Found")
-	smt := db.QueryRow("SELECT * FROM authors WHERE Id = ?", id)
+	smt := app.db.QueryRow("SELECT * FROM authors WHERE Id = ?", id)
 	err := smt.Scan(&author.Id, &author.Name, &author.Website, &author.CreatedAt, &author.UpdatedAt)
 	if err == sql.ErrNoRows || author.Name == "" {
 		return nil, ErrNotFound
@@ -40,14 +44,14 @@ func Find(db *sql.DB, id int) (*Author, error) {
 	return &author, nil
 }
 
-func FindAll(db *sql.DB) (*[]Author, error) {
-	var authors []Author
-	rows, err := db.Query("SELECT * FROM authors")
+func (app AppRepostory) FindAllAuthor() (*[]models.Author, error) {
+	var authors []models.Author
+	rows, err := app.db.Query("SELECT * FROM authors")
 	if err != nil {
 		return nil, err
 	}
 	for rows.Next() {
-		var author Author
+		var author models.Author
 
 		rows.Scan(&author.Id, &author.Name, &author.Website, &author.CreatedAt, &author.UpdatedAt)
 		authors = append(authors, author)
@@ -55,9 +59,9 @@ func FindAll(db *sql.DB) (*[]Author, error) {
 	return &authors, nil
 }
 
-func FindByName(db *sql.DB, name string) *Author {
-	var author Author
-	row := db.QueryRow("SELECT * FROM authors WHERE Name = ?", name)
+func (app AppRepostory) FindAuthorByName(name string) *models.Author {
+	var author models.Author
+	row := app.db.QueryRow("SELECT * FROM authors WHERE Name = ?", name)
 	row.Scan(&author.Id, &author.Name, &author.Website, &author.CreatedAt, &author.UpdatedAt)
 	if author.Id == 0 {
 		return nil
@@ -65,13 +69,13 @@ func FindByName(db *sql.DB, name string) *Author {
 	return &author
 }
 
-func (author Author) Update(db *sql.DB) (*Author, error) {
+func (app AppRepostory) UpdateAuthor(author models.Author) (*models.Author, error) {
 	var ErrOcurred = errors.New("erro ocorred on updating author")
-	finded, err := Find(db, int(author.Id))
+	finded, err := app.FindAuthor(int(author.Id))
 	if err != nil {
 		return nil, err
 	}
-	smt, err := db.Prepare("UPDATE authors SET Name = ?, Website = ?, UpdatedAt = ? WHERE Id = ?")
+	smt, err := app.db.Prepare("UPDATE authors SET Name = ?, Website = ?, UpdatedAt = ? WHERE Id = ?")
 	if err != nil {
 		return nil, err
 	}
@@ -81,19 +85,19 @@ func (author Author) Update(db *sql.DB) (*Author, error) {
 	}
 	isUpdated, _ := result.RowsAffected()
 	if isUpdated >= 1 {
-		retrieve, _ := Find(db, int(author.Id))
+		retrieve, _ := app.FindAuthor(int(author.Id))
 		return retrieve, nil
 	}
 	return nil, ErrOcurred
 }
 
-func (author *Author) Delete(db *sql.DB) (bool, error) {
-	stmt, err := db.Prepare("DELETE FROM authors WHERE id = ?")
+func (app AppRepostory) DeleteAuthor(id int) (bool, error) {
+	stmt, err := app.db.Prepare("DELETE FROM authors WHERE id = ?")
 
 	if err != nil {
 		return false, errors.New("nao foi possivel remover o registro, " + err.Error())
 	}
-	result, err := stmt.Exec(author.Id)
+	result, err := stmt.Exec(id)
 	if err != nil {
 		return false, errors.New("nao foi possivel remover o registro, " + err.Error())
 	}

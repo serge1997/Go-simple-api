@@ -1,6 +1,8 @@
 package dto
 
-import "github.com/serge1197/go-simple-api/repository/author"
+import (
+	"github.com/serge1197/go-simple-api/models"
+)
 
 type AuthorDto struct {
 	Id        int64   `json:"id"`
@@ -10,7 +12,7 @@ type AuthorDto struct {
 	UpdatedAt *string `json:"upated_at"`
 }
 
-func AuthorsCollection(authors []author.Author) []AuthorDto {
+func AuthorsCollection(authors []models.Author) []AuthorDto {
 	var result []AuthorDto
 	for _, author := range authors {
 		create_at := author.CreatedAt.Format("02-01-2006 15:04:15")
@@ -24,7 +26,7 @@ func AuthorsCollection(authors []author.Author) []AuthorDto {
 	return result
 }
 
-func AuthorToResource(author author.Author) AuthorDto {
+func AuthorToResource(author models.Author) AuthorDto {
 	create_at := author.CreatedAt.Format("02-01-2006 15:04:15")
 	var updated_at string
 	if author.UpdatedAt != nil {

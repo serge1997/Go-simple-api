@@ -11,7 +11,8 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/serge1197/go-simple-api/db"
 	"github.com/serge1197/go-simple-api/dto"
-	"github.com/serge1197/go-simple-api/repository/author"
+	"github.com/serge1197/go-simple-api/models"
+	"github.com/serge1197/go-simple-api/repository"
 	"github.com/serge1197/go-simple-api/services"
 )
 
@@ -19,12 +20,13 @@ var ErrEmptyAuthorRequestBody error = errors.New("please inform author body")
 
 func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
-	var author author.Author
+	var author models.Author
 	db.ConnSqlite()
 	json.NewDecoder(r.Body).Decode(&author)
 	author.CreatedAt = time.Now()
 	author.UpdatedAt = nil
-	id, err := author.Persist(db.Connection)
+	repository := repository.Init(db.Connection)
+	id, err := repository.PersistAuthor(author)
 	if err != nil {
 		msg := err.Error()
 		services.JSONError(w, msg, nil, http.StatusBadRequest)
@@ -47,7 +49,8 @@ func Show(w http.ResponseWriter, r *http.Request) {
 		services.JSONError(w, er, nil, http.StatusBadRequest)
 		return
 	}
-	author, err := author.Find(db.Connection, id)
+	repository := repository.Init(db.Connection)
+	author, err := repository.FindAuthor(id)
 	if err != nil {
 		er := err.Error()
 		services.JSONError(w, er, nil, http.StatusNotFound)
@@ -62,7 +65,8 @@ func ListAll(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
 	db.ConnSqlite()
 	defer db.Connection.Close()
-	authors, err := author.FindAll(db.Connection)
+	repository := repository.Init(db.Connection)
+	authors, err := repository.FindAllAuthor()
 	if err != nil {
 		msg := err.Error()
 		services.JSONSuccess(w, msg, nil, 404)
@@ -76,10 +80,11 @@ func ListAll(w http.ResponseWriter, r *http.Request) {
 
 func UpdateAuthor(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
-	var author author.Author
+	var author models.Author
 	db.ConnSqlite()
 	json.NewDecoder(r.Body).Decode(&author)
-	result, err := author.Update(db.Connection)
+	repository := repository.Init(db.Connection)
+	result, err := repository.UpdateAuthor(author)
 	if err != nil {
 		message := err.Error()
 		services.JSONError(w, message, nil, 501)
@@ -101,13 +106,13 @@ func DeleteAuthor(w http.ResponseWriter, r *http.Request) {
 	}
 	db.ConnSqlite()
 	id := int(parseId)
-	author, err := author.Find(db.Connection, id)
+	repository := repository.Init(db.Connection)
 	if err != nil {
 		message := err.Error()
 		services.JSONError(w, message, nil, http.StatusNotFound)
 		return
 	}
-	_, errr := author.Delete(db.Connection)
+	_, errr := repository.DeleteAuthor(id)
 	if errr != nil {
 		message := err.Error()
 		services.JSONError(w, message, nil, http.StatusNotFound)

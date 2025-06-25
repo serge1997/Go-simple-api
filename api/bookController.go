@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/serge1197/go-simple-api/repository/book"
+	"github.com/serge1197/go-simple-api/models"
 	"github.com/serge1197/go-simple-api/services"
 )
 
@@ -15,7 +15,7 @@ func StoreBook(w http.ResponseWriter, r *http.Request) {
 	params := r.Body
 	fmt.Println(params)
 	var response services.HttpResponse
-	var book book.Book
+	var book models.Book
 
 	json.NewDecoder(r.Body).Decode(&book)
 	if book.Title == "" {
