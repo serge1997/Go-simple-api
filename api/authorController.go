@@ -61,16 +61,17 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func ListAll(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
 	db.ConnSqlite()
+	defer db.Connection.Close()
 	authors, err := author.FindAll(db.Connection)
 	if err != nil {
 		msg := err.Error()
 		services.JSONSuccess(w, msg, nil, 404)
 		return
 	}
+
 	collection := dto.AuthorsCollection(*authors)
 	message := "List of all author"
 	services.JSONSuccess(w, message, collection, 200)
-
 }
 
 func UpdateAuthor(w http.ResponseWriter, r *http.Request) {

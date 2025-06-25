@@ -3,11 +3,11 @@ package dto
 import "github.com/serge1197/go-simple-api/repository/author"
 
 type AuthorDto struct {
-	Id        int64
-	Name      string
-	Website   string
-	CreatedAt string
-	UpdatedAt *string
+	Id        int64   `json:"id"`
+	Name      string  `json:"name"`
+	Website   *string `json:"website"`
+	CreatedAt string  `json:"created_at"`
+	UpdatedAt *string `json:"upated_at"`
 }
 
 func AuthorsCollection(authors []author.Author) []AuthorDto {
@@ -18,7 +18,7 @@ func AuthorsCollection(authors []author.Author) []AuthorDto {
 		if author.UpdatedAt != nil {
 			updated_at = author.UpdatedAt.Format("02-01-2006 15:04:15")
 		}
-		var dto = AuthorDto{Id: author.Id, Name: author.Name, Website: *author.Website, CreatedAt: create_at, UpdatedAt: &updated_at}
+		var dto = AuthorDto{Id: author.Id, Name: author.Name, Website: author.Website, CreatedAt: create_at, UpdatedAt: &updated_at}
 		result = append(result, dto)
 	}
 	return result
@@ -33,7 +33,7 @@ func AuthorToResource(author author.Author) AuthorDto {
 	return AuthorDto{
 		Id:        author.Id,
 		Name:      author.Name,
-		Website:   *author.Website,
+		Website:   author.Website,
 		CreatedAt: create_at,
 		UpdatedAt: &updated_at,
 	}
