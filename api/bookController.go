@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/serge1197/go-simple-api/db"
 	"github.com/serge1197/go-simple-api/models"
+	"github.com/serge1197/go-simple-api/repository"
 	"github.com/serge1197/go-simple-api/services"
 )
 
@@ -14,17 +16,19 @@ func StoreBook(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
 	params := r.Body
 	fmt.Println(params)
-	var response services.HttpResponse
 	var book models.Book
 
+	db.ConnSqlite()
+
 	json.NewDecoder(r.Body).Decode(&book)
-	if book.Title == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		response.Message = "Informe book body data"
-		response.Code = http.StatusBadRequest
-		json.NewEncoder(w).Encode(response)
+	fmt.Println(book)
+	repository := repository.Init(db.Connection)
+	result, err := repository.PersistBook(&book)
+	if err != nil {
+		services.JSONError(w, err.Error(), nil, http.StatusInternalServerError)
 		return
 	}
+	services.JSONSuccess(w, "book created", result, http.StatusCreated)
 	//id, _ := strconv.ParseInt(params["authorId"], 0, 64)
 	//author, err := author.Find()
 }

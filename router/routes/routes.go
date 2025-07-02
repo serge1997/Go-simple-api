@@ -16,6 +16,7 @@ type Route struct {
 func RoutesRegister(r *mux.Router) {
 	var appRoutes = authorRoutes
 	appRoutes = append(appRoutes, homeRoute)
+	appRoutes = append(appRoutes, bookRoutes...)
 	for _, route := range appRoutes {
 		r.HandleFunc(route.Uri, route.Handle).Methods(route.Method)
 	}

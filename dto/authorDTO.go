@@ -39,5 +39,6 @@ func AuthorToResource(author models.Author) AuthorDto {
 		Website:   author.Website,
 		CreatedAt: create_at,
 		UpdatedAt: &updated_at,
+		Books:     &author.Books,
 	}
 }
