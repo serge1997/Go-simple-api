@@ -26,14 +26,13 @@ func StoreAuthor(w http.ResponseWriter, r *http.Request) {
 	author.CreatedAt = time.Now()
 	author.UpdatedAt = nil
 	repository := repository.Init(db.Connection)
-	id, err := repository.PersistAuthor(author)
+	result, err := repository.PersistAuthor(&author)
 	if err != nil {
 		msg := err.Error()
 		services.JSONError(w, msg, nil, http.StatusBadRequest)
 		return
 	}
-	author.Id = *id
-	data := dto.AuthorToResource(author)
+	data := dto.AuthorToResource(*result)
 
 	message := "author created successfully"
 	services.JSONSuccess(w, message, data, http.StatusCreated)
@@ -64,7 +63,7 @@ func Show(w http.ResponseWriter, r *http.Request) {
 func ListAll(w http.ResponseWriter, r *http.Request) {
 	services.Write(r.Method + " " + r.URL.Path)
 	db.ConnSqlite()
-	defer db.Connection.Close()
+	defer db.Close()
 	repository := repository.Init(db.Connection)
 	authors, err := repository.FindAllAuthor()
 	if err != nil {

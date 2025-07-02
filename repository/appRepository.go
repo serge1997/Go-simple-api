@@ -1,12 +1,14 @@
 package repository
 
-import "database/sql"
+import (
+	"gorm.io/gorm"
+)
 
 type AppRepostory struct {
-	db *sql.DB
+	db *gorm.DB
 }
 
-func Init(db *sql.DB) AppRepostory {
+func Init(db *gorm.DB) AppRepostory {
 	app := AppRepostory{db}
 	return app
 }

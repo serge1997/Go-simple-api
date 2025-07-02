@@ -1,24 +1,20 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/serge1197/go-simple-api/models"
 )
 
-func (app AppRepostory) PersistBook(book models.Book) (*int64, error) {
-	stmt, err := app.db.Prepare("INSERT INTO books(Title, Edition, Year, AuthorId) VALUES(?,?,?,?)")
-	if err != nil {
+func (app AppRepostory) PersistBook(book *models.Book) (*models.Book, error) {
+	if err := app.db.Create(&book).Error; err != nil {
 		return nil, err
 	}
-	result, err := stmt.Exec(book.Title, book.Edition, book.Year, book.Author.Id)
-	if err != nil {
+	if book.Id == 0 {
+		var err = errors.New("erro when trying to create book")
 		return nil, err
 	}
-	if id, err := result.LastInsertId(); err != nil {
-		return nil, err
-	} else {
-		return &id, nil
-	}
-
+	return book, nil
 }
 
 func (app AppRepostory) FindAllBook() {

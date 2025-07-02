@@ -5,11 +5,12 @@ import (
 )
 
 type AuthorDto struct {
-	Id        int64   `json:"id"`
-	Name      string  `json:"name"`
-	Website   *string `json:"website"`
-	CreatedAt string  `json:"created_at"`
-	UpdatedAt *string `json:"upated_at"`
+	Id        int64          `json:"id"`
+	Name      string         `json:"name"`
+	Website   *string        `json:"website"`
+	CreatedAt string         `json:"created_at"`
+	UpdatedAt *string        `json:"upated_at"`
+	Books     *[]models.Book `json:"books"`
 }
 
 func AuthorsCollection(authors []models.Author) []AuthorDto {
