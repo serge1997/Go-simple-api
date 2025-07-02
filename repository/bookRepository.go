@@ -17,17 +17,36 @@ func (app AppRepostory) PersistBook(book *models.Book) (*models.Book, error) {
 	return book, nil
 }
 
-func (app AppRepostory) FindAllBook() {
-
+func (app AppRepostory) FindAllBook() (*[]models.Book, error) {
+	var books []models.Book
+	if err := app.db.Preload("Author").Find(&books).Error; err != nil {
+		return nil, err
+	}
+	return &books, nil
 }
 
-func (app AppRepostory) FindBook(id int) {
-
+func (app AppRepostory) FindBook(id int) (*models.Book, error) {
+	var book models.Book
+	if err := app.db.Preload("Author").First(&book, "Id = ?", id).Error; err != nil {
+		return nil, err
+	}
+	return &book, nil
 }
-func (app AppRepostory) FindByTitle(title string) {
-
+func (app AppRepostory) FindByTitle(title string) (*models.Book, error) {
+	var book models.Book
+	if err := app.db.First(&book, "Title = ?", title).Error; err != nil {
+		return nil, err
+	}
+	return &book, nil
 }
 
-func (app AppRepostory) DeleteBook(id int) {
-
+func (app AppRepostory) DeleteBook(id int) (bool, error) {
+	book, err := app.FindBook(id)
+	if err != nil {
+		return false, nil
+	}
+	if err = app.db.Delete(&book, id).Error; err != nil {
+		return false, err
+	}
+	return true, nil
 }
