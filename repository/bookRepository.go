@@ -40,6 +40,17 @@ func (app AppRepostory) FindByTitle(title string) (*models.Book, error) {
 	return &book, nil
 }
 
+func (app AppRepostory) UpdateBook(book models.Book) (*models.Book, error) {
+	finded, err := app.FindBook(book.Id)
+	if err != nil {
+		return nil, err
+	}
+	if err = app.db.Model(&finded).Updates(book).Error; err != nil {
+		return nil, err
+	}
+	return finded, nil
+}
+
 func (app AppRepostory) DeleteBook(id int) (bool, error) {
 	book, err := app.FindBook(id)
 	if err != nil {

@@ -106,15 +106,9 @@ func DeleteAuthor(w http.ResponseWriter, r *http.Request) {
 	db.ConnSqlite()
 	id := int(parseId)
 	repository := repository.Init(db.Connection)
-	if err != nil {
-		message := err.Error()
-		services.JSONError(w, message, nil, http.StatusNotFound)
-		return
-	}
-	_, errr := repository.DeleteAuthor(id)
-	if errr != nil {
-		message := err.Error()
-		services.JSONError(w, message, nil, http.StatusNotFound)
+	_, er := repository.DeleteAuthor(id)
+	if er != nil {
+		services.JSONError(w, er.Error(), nil, http.StatusNotFound)
 		return
 	}
 	message := "author removed successfully"

@@ -2,9 +2,12 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 
+	"github.com/gorilla/mux"
 	"github.com/serge1197/go-simple-api/db"
 	"github.com/serge1197/go-simple-api/dto"
 	"github.com/serge1197/go-simple-api/models"
@@ -41,4 +44,37 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 	}
 	collection := dto.BookCollection(books)
 	services.JSONSuccess(w, "list of all book", collection, http.StatusOK)
+}
+
+func ShowBook(w http.ResponseWriter, r *http.Request) {
+	var book models.Book
+	var ErrEmptyID error = errors.New("book id missed")
+	json.NewDecoder(r.Body).Decode(&book)
+	if book.Id == 0 {
+		services.JSONError(w, ErrEmptyID.Error(), nil, http.StatusBadRequest)
+		return
+	}
+	db.ConnSqlite()
+	repository := repository.Init(db.Connection)
+	result, err := repository.UpdateBook(book)
+	if err != nil {
+		services.JSONError(w, err.Error(), nil, http.StatusBadRequest)
+		return
+	}
+	dto := dto.BookResource(result)
+	services.JSONSuccess(w, "book updated successfully", dto, http.StatusOK)
+}
+
+func DeleteBook(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+
+	db.ConnSqlite()
+	repository := repository.Init(db.Connection)
+	_, err := repository.DeleteBook(id)
+	if err != nil {
+		services.JSONError(w, err.Error(), nil, http.StatusBadRequest)
+		return
+	}
+	services.JSONSuccess(w, "book removed successfully", nil, http.StatusOK)
 }
