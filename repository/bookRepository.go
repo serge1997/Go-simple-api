@@ -14,6 +14,7 @@ func (app AppRepostory) PersistBook(book *models.Book) (*models.Book, error) {
 		var err = errors.New("erro when trying to create book")
 		return nil, err
 	}
+	app.db.Preload("Author").First(&book, "id = ?", book.Id)
 	return book, nil
 }
 
@@ -41,11 +42,15 @@ func (app AppRepostory) FindByTitle(title string) (*models.Book, error) {
 }
 
 func (app AppRepostory) UpdateBook(book models.Book) (*models.Book, error) {
+	var ErrBookIdNotInformed error = errors.New("book id is missing")
+	if book.Id == 0 {
+		return nil, ErrBookIdNotInformed
+	}
 	finded, err := app.FindBook(book.Id)
 	if err != nil {
 		return nil, err
 	}
-	if err = app.db.Model(&finded).Updates(book).Error; err != nil {
+	if err = app.db.Model(&finded).Omit("Author").Updates(book).Error; err != nil {
 		return nil, err
 	}
 	return finded, nil

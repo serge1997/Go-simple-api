@@ -78,3 +78,17 @@ func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	}
 	services.JSONSuccess(w, "book removed successfully", nil, http.StatusOK)
 }
+
+func UpdateBook(w http.ResponseWriter, r *http.Request) {
+	var book models.Book
+	json.NewDecoder(r.Body).Decode(&book)
+	db.ConnSqlite()
+	repository := repository.Init(db.Connection)
+	result, err := repository.UpdateBook(book)
+	if err != nil {
+		services.JSONError(w, err.Error(), nil, http.StatusBadRequest)
+		return
+	}
+	res := dto.BookResource(result)
+	services.JSONSuccess(w, "book updated successfuly", res, http.StatusOK)
+}

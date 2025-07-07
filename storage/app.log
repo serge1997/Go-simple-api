@@ -335,3 +335,16 @@
 2025/07/01 23:26:04 GET /author/1
 2025/07/01 23:26:37 Server is running [:3000]
 2025/07/01 23:26:40 GET /author/1
+2025/07/06 22:35:55 Server is running [:3000]
+2025/07/06 22:35:57 POST /book
+2025/07/06 22:43:31 Server is running [:3000]
+2025/07/06 22:44:58 POST /book
+2025/07/06 22:45:38 Server is running [:3000]
+2025/07/06 22:45:42 POST /book
+2025/07/06 22:50:34 Server is running [:3000]
+2025/07/06 22:50:38 POST /book
+2025/07/06 22:53:51 Server is running [:3000]
+2025/07/06 22:53:57 POST /book
+2025/07/06 22:55:42 Server is running [:3000]
+2025/07/06 22:56:38 Server is running [:3000]
+2025/07/06 22:58:14 Server is running [:3000]

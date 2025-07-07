@@ -18,6 +18,7 @@ func BookResource(book *models.Book) BookDto {
 		Title:   book.Title,
 		Edition: book.Edition,
 		Author:  AuthorToResource(book.Author),
+		Year:    book.Year,
 	}
 	return dto
 }

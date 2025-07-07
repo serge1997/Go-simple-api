@@ -16,25 +16,25 @@ var bookRoutes = []Route{
 	{
 		Uri:         "/book",
 		Method:      http.MethodGet,
-		Handle:      func(w http.ResponseWriter, r *http.Request) {},
+		Handle:      api.GetBooks,
 		RequireAuth: false,
 	},
 	{
 		Uri:         "/book/{id}",
 		Method:      http.MethodGet,
-		Handle:      func(w http.ResponseWriter, r *http.Request) {},
+		Handle:      api.ShowBook,
 		RequireAuth: false,
 	},
 	{
 		Uri:         "/book",
 		Method:      http.MethodPut,
-		Handle:      func(w http.ResponseWriter, r *http.Request) {},
+		Handle:      api.UpdateBook,
 		RequireAuth: false,
 	},
 	{
 		Uri:         "/book/{id}",
 		Method:      http.MethodDelete,
-		Handle:      func(w http.ResponseWriter, r *http.Request) {},
+		Handle:      api.DeleteBook,
 		RequireAuth: false,
 	},
 }
