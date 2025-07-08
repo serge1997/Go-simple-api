@@ -5,7 +5,7 @@ import (
 )
 
 type AuthorDto struct {
-	Id        int64          `json:"id"`
+	Id        uint           `json:"id"`
 	Name      string         `json:"name"`
 	Website   *string        `json:"website"`
 	CreatedAt string         `json:"created_at"`

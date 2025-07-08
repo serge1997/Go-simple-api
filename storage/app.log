@@ -348,3 +348,10 @@
 2025/07/06 22:55:42 Server is running [:3000]
 2025/07/06 22:56:38 Server is running [:3000]
 2025/07/06 22:58:14 Server is running [:3000]
+2025/07/07 21:50:45 Server is running [:3000]
+2025/07/07 21:51:57 Server is running [:3000]
+2025/07/07 21:52:11 PUT /author
+2025/07/07 21:52:13 PUT /author
+2025/07/07 21:52:44 Server is running [:3000]
+2025/07/07 21:52:49 PUT /author
+2025/07/07 21:52:55 GET /author
